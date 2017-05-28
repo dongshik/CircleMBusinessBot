@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Bot.Builder.Luis.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,26 @@ namespace LyncBot.Core
                 "In a meeting",
                 "Busy now. Can we talk later?"
             };
+        }
+
+        public static List<string> INQUIRY_TEAM_BUDGETResponse(LuisResult result)
+        {
+            var intents = new List<IntentRecommendation>(result.Intents);
+            var entities = new List<EntityRecommendation>(result.Entities);
+
+            //System.Console.WriteLine("<LyncLuisDialog> LuisIntent [INQUIRY_TEAM_BUDGET] result : " + result.Query);
+            System.Console.WriteLine("--> INQUIRY_TEAM_BUDGETResponse result count : " + intents.Count);
+            foreach (var intent in intents)
+            {
+                System.Console.WriteLine("--> intent : [" + intent.Score + "],[" + intent.Intent + "]");
+            }
+
+            foreach (var entity in entities)
+            {
+                System.Console.WriteLine("--> entity : [" + entity.Score + "],[" + entity.Entity + "]");
+            }
+
+            return new List<string> { "한글" };
         }
 
         private static List<string> GetGreeting()
